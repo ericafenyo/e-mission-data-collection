@@ -127,15 +127,17 @@ angular.module('emission.main.control.collection', [])
     };
 
     cch.forceTransition = function(transition) {
-        cch.forceTransitionWrapper(transition).then(function(result) {
-            $ionicPopup.alert({template: 'success -> '+result}).then(function() {
+        cch.forceTransition = function(transition) {
+            cch.forceTransitionWrapper(transition).then(function(result) {
+                setTimeout( ()=> {
+                    $rootScope.$broadcast('control.update.complete', 'forceTransition');
+                }, 100);
+           }, function(error) {
+            setTimeout( ()=> {
                 $rootScope.$broadcast('control.update.complete', 'forceTransition');
-            });
-        }, function(error) {
-            $ionicPopup.alert({template: 'error -> '+error}).then(function() {
-                $rootScope.$broadcast('control.update.complete', 'forceTransition');
-            });
-        });
+            }, 100);
+           });
+        };
     };
 
 
