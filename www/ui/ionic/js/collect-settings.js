@@ -127,20 +127,18 @@ angular.module('emission.main.control.collection', [])
     };
 
     cch.forceTransition = function(transition) {
-        cch.forceTransition = function(transition) {
-            cch.forceTransitionWrapper(transition).then(function(result) {
-                setTimeout( ()=> {
-                    $rootScope.$broadcast('control.update.complete', 'forceTransition');
-                }, 100);
-           }, function(error) {
-            setTimeout( ()=> {
+        cch.forceTransitionWrapper(transition).then(function(result) {
+            $ionicPopup.alert({template: 'success -> '+result}).then(function() {
                 $rootScope.$broadcast('control.update.complete', 'forceTransition');
-            }, 100);
-           });
-        };
+            });
+        }, function(error) {
+            $ionicPopup.alert({template: 'error -> '+error}).then(function() {
+                $rootScope.$broadcast('control.update.complete', 'forceTransition');
+            });
+        });
     };
 
-
+    
     /* 
      * Functions for the separate accuracy toggle 
      */
