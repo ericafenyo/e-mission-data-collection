@@ -126,16 +126,15 @@ angular.module('emission.main.control.collection', [])
         });
     };
 
-    cch.forceTransition = function(transition) {
-        cch.forceTransitionWrapper(transition).then(function(result) {
-            $ionicPopup.alert({template: 'success -> '+result}).then(function() {
-                $rootScope.$broadcast('control.update.complete', 'forceTransition');
-            });
-        }, function(error) {
-            $ionicPopup.alert({template: 'error -> '+error}).then(function() {
-                $rootScope.$broadcast('control.update.complete', 'forceTransition');
-            });
-        });
+    cch.forceTransition = async function (transition) {
+        try {
+            const result = await cch.forceTransitionWrapper(transition);
+            console.log('Force transition successful', JSON.stringify(result))
+            $rootScope.$broadcast('control.update.complete', 'forceTransition');
+        } catch (error) {
+            console.log('Force transition failed', JSON.stringify(result))
+            $rootScope.$broadcast('control.update.complete', 'forceTransition');
+        }
     };
 
     
